@@ -1,45 +1,65 @@
 const getState = ({ getStore, getActions, setStore }) => {
-	return {
-		store: {
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			]
-		},
-		actions: {
-			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
-			},
-			loadSomeData: () => {
-				/**
-					fetch().then().then(data => setStore({ "foo": data.bar }))
-				*/
-			},
-			changeColor: (index, color) => {
-				//get the store
-				const store = getStore();
+    return {
+        store: {
+            urlBase: "https://www.swapi.tech/api",
+            people: [],
+            vehicles: [],
+            planets: [],
+            favorites: []
+        },
+        actions: {
+            getPeople: async () => {
+                const store = getStore();
+                try {
+                    const response = await fetch(`${store.urlBase}/people`);
+                    const data = await response.json();
+                    if (response.ok) {
+                        setStore({ people: data.results });
+                    }
+                } catch (error) {
+                    console.error("Error fetching people:", error);
+                }
+            },
 
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
+            getVehicles: async () => {
+                const store = getStore();
+                try {
+                    const response = await fetch(`${store.urlBase}/vehicles`);
+                    const data = await response.json();
+                    if (response.ok) {
+                        setStore({ vehicles: data.results });
+                    }
+                } catch (error) {
+                    console.error("Error fetching vehicles:", error);
+                }
+            },
 
-				//reset the global store
-				setStore({ demo: demo });
-			}
-		}
-	};
+            getPlanets: async () => {
+                const store = getStore();
+                try {
+                    const response = await fetch(`${store.urlBase}/planets`);
+                    const data = await response.json();
+                    if (response.ok) {
+                        setStore({ planets: data.results });
+                    }
+                } catch (error) {
+                    console.error("Error fetching planets:", error);
+                }
+            },
+
+            addFavorite: (item) => {
+                const store = getStore();
+                if (!store.favorites.some(fav => fav.uid === item.uid)) {
+                    setStore({ favorites: [...store.favorites, item] });
+                }
+            },
+
+            removeFavorite: (uid) => {
+                const store = getStore();
+                setStore({ favorites: store.favorites.filter(fav => fav.uid !== uid) });
+            }
+        }
+    };
 };
 
 export default getState;
