@@ -1,9 +1,19 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
-import { Context } from "../store/appContext";
+import React, { useState, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
+import { Context } from '../store/appContext';
 
 export const Navbar = () => {
     const { store, actions } = useContext(Context);
+    const [favorites, setFavorites] = useState([]);
+
+    // Escucha cambios en el contexto y actualiza el estado local
+    useEffect(() => {
+        setFavorites(store.favorites);
+    }, [store.favorites]);
+
+    const handleRemoveFavorite = (uid) => {
+        actions.removeFavorite(uid);
+    };
 
     return (
         <nav className="navbar navbar-light bg-light mb-3">
@@ -13,15 +23,19 @@ export const Navbar = () => {
             <div className="ml-auto">
                 <div className="dropdown">
                     <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Favorites {store.favorites.length}
+                        Favorites ({store.favorites.length})
                     </button>
                     <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        {store.favorites.map(favorite => (
-                            <div className="dropdown-item d-flex justify-content-between align-items-center" key={favorite.uid}>
-                                {favorite.name}
-                                <button className="btn btn-danger btn-sm ml-2" onClick={() => actions.removeFavorite(favorite.uid)}>X</button>
-                            </div>
-                        ))}
+                        {favorites.length === 0 ? (
+                            <div className="dropdown-item">0 favorites</div>
+                        ) : (
+                            favorites.map(favorite => (
+                                <div className="dropdown-item d-flex justify-content-between align-items-center" key={favorite.uid}>
+                                    {favorite.name}
+                                    <button className="btn btn-danger btn-sm ml-2" onClick={() => handleRemoveFavorite(favorite.uid)}>X</button>
+                                </div>
+                            ))
+                        )}
                     </div>
                 </div>
             </div>

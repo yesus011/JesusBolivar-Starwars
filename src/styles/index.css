@@ -4,3 +4,16 @@
 /* body{
     background-color: black;
 } */
+
+.card {
+    
+    max-width: 400px;
+    min-width: 400px;
+}
+
+.scroll-character{
+    display: flex;
+    overflow-x: scroll;
+  
+
+}

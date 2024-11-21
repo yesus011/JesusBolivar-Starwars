@@ -55,9 +55,10 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
 
             removeFavorite: (uid) => {
-                const store = getStore();
-                setStore({ favorites: store.favorites.filter(fav => fav.uid !== uid) });
-            }
+                setStore({
+                    favorites: getStore().favorites.filter((favorite) => favorite.uid !== uid)
+                });
+            },
         }
     };
 };
