@@ -22,18 +22,18 @@ export const Navbar = () => {
             </Link>
             <div className="ml-auto">
                 <div className="dropdown">
-                    <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Favorites ({store.favorites.length})
+                    <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"  aria-expanded="false">
+                        Favorites ({favorites.length})
                     </button>
-                    <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <div className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                         {favorites.length === 0 ? (
                             <div className="dropdown-item">0 favorites</div>
                         ) : (
                             favorites.map(favorite => (
-                                <div className="dropdown-item d-flex justify-content-between align-items-center" key={favorite.uid}>
+                                <li className="dropdown-item d-flex justify-content-between align-items-center" key={favorite.uid}>
                                     {favorite.name}
                                     <button className="btn btn-danger btn-sm ml-2" onClick={() => handleRemoveFavorite(favorite.uid)}>X</button>
-                                </div>
+                                </li>
                             ))
                         )}
                     </div>

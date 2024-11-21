@@ -8,37 +8,37 @@ export const Home = () => {
 
     return (
         <div className="container" >
-           <div className="row " id= "">
+            <div className="row " id="">
                 <h1 className="ms-2 mt-3">People</h1>
                 <div className="col-12 scroll-character">
-           
-                    
 
-                    
-                        {store.people.map(person => (
-                            <div className="container ">
-                                <EntityCard key={person.uid} entity={person} type="people" />
-                            </div>
-                        ))}
-                </div>        
-           </div>
-           
-           
-           
-           
-            <div className="row">
-                            <h1 className="ms-2 mt-3">Vehicles</h1>
-                            <div className="col-12 scroll-character">
-                                {store.vehicles.map(vehicle => (
-                                    <div className="container ">
-                                        <EntityCard key={vehicle.uid} entity={vehicle} type="vehicles" />
-                                    </div>
-                                ))}
-                            </div>
+
+
+
+                    {store.people.map(person => (
+                        <div className="container ">
+                            <EntityCard key={person.uid} entity={person} type="people" />
+                        </div>
+                    ))}
+                </div>
             </div>
-            
-            
-            
+
+
+
+
+            <div className="row">
+                <h1 className="ms-2 mt-3">Vehicles</h1>
+                <div className="col-12 scroll-character">
+                    {store.vehicles.map(vehicle => (
+                        <div className="container ">
+                            <EntityCard key={vehicle.uid} entity={vehicle} type="vehicles" />
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+
+
             <div className="row">
                 <h1 className="ms-2 mt-3">Planets</h1>
                 <div className="col-12 scroll-character">
@@ -48,7 +48,7 @@ export const Home = () => {
                         </div>
                     ))}
                 </div>
-            </div>    
+            </div>
         </div>
     );
 };
